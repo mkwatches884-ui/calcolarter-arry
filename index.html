@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marks Calculator</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #9bdad7, #a9c3e0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-size: 29px;
+    margin-bottom: 23px;
+}
+
+.calculator {
+    background: rgba(255,255,255,0.28);
+    padding: 43px 30px 28px;
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.tip {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 27px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 17px;
+    border: none;
+    border-radius: 11px;
+    background: white;
+    font-size: 14px;
+    outline: none;
+}
+
+button {
+    background: #2860ed;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #174bc5;
+}
+
+#result {
+    color: white;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
+footer {
+    color: white;
+    font-size: 14px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Marks Calculator 🎯</h1>
+
+    <div class="calculator">
+
+        <p class="tip">
+            Tip: Set Endsem = 0 to see required marks 🚀
+        </p>
+
+        <input type="number" id="a1"
+        placeholder="Assessment 1 (out of 25)"
+        min="0" max="25">
+
+        <input type="number" id="a2"
+        placeholder="Assessment 2 (out of 25)"
+        min="0" max="25">
+
+        <input type="number" id="a3"
+        placeholder="Assessment 3 (out of 25)"
+        min="0" max="25">
+
+        <input type="number" id="endsem"
+        placeholder="Endsem (out of 100)"
+        min="0" max="100">
+
+        <button onclick="calculate()">
+            Calculate =📈
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <footer>
+        Made with ❤️ for  Students
+    </footer>
+
+</div>
+
+<script>
+function calculate() {
+
+    let a1 = document.getElementById("a1").value;
+    let a2 = document.getElementById("a2").value;
+    let a3 = document.getElementById("a3").value;
+    let endsem = document.getElementById("endsem").value;
+
+    if (a1 === "" || a2 === "" ||
+        a3 === "" || endsem === "") {
+        alert("Please enter all marks!");
+        return;
+    }
+
+    a1 = Number(a1);
+    a2 = Number(a2);
+    a3 = Number(a3);
+    endsem = Number(endsem);
+
+    if (a1 < 0 || a1 > 25 ||
+        a2 < 0 || a2 > 25 ||
+        a3 < 0 || a3 > 25 ||
+        endsem < 0 || endsem > 100) {
+        alert("Enter valid marks!");
+        return;
+    }
+
+    let internal = a1 + a2 + a3;
+    let total = internal + endsem;
+    let percentage = (total / 175) * 100;
+
+    let required = 70 - internal;
+
+    let output = `
+        Internal Marks: ${internal}/75 <br>
+        Total Marks: ${total}/175 <br>
+        Percentage: ${percentage.toFixed(2)}%
+        <br>
+    `;
+
+    if (endsem === 0 && required > 0) {
+        output += `Required Marks: ${required}/100`;
+    }
+    else if (total >= 70) {
+        output += "Result: PASS 🎉";
+    }
+    else {
+        output += "Result: FAIL ❌";
+    }
+
+    document.getElementById("result").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
